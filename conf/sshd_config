@@ -1,0 +1,36 @@
+Port 9822
+Protocol 2
+PermitRootLogin no
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+SyslogFacility AUTHPRIV
+#RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile      .ssh/authorized_keys
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+GSSAPIAuthentication yes
+GSSAPICleanupCredentials yes
+UsePAM yes
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
+AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
+AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
+AcceptEnv XMODIFIERS
+Subsystem       sftp    internal-sftp
+UseDNS no
+AcceptEnv LANG LC_*
+Match Group sftp
+   ChrootDirectory /var/sftp/%u  
+   ForceCommand    internal-sftp
+   AllowTcpForwarding no  
+   X11Forwarding no 
+Match User abc
+   ChrootDirectory /var/sftp/abc
+   ForceCommand    internal-sftp
+Match User aaa
+   ChrootDirectory /var/sftp/aaa
+   ForceCommand    internal-sftp
+Match User ccc
+   ChrootDirectory /var/sftp/ccc
+   ForceCommand    internal-sftp
